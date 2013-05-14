@@ -32,10 +32,10 @@ class nodejs(
       include 'apt'
 
       # Only use PPA when necessary.
-      if $::lsbdistcodename != 'Precise'{
+
         apt::ppa { 'ppa:chris-lea/node.js':
           before => Anchor['nodejs::repo'],
-        }
+
       }
     }
 
@@ -69,7 +69,7 @@ class nodejs(
     require => Anchor['nodejs::repo']
   }
 
-  if $::operatingsystem != 'ubuntu' or $::lsbdistcodename == 'Precise' {
+  if $::operatingsystem != 'ubuntu' or $::lsbdistcodename != 'Precise' {
     package { 'npm':
       name    => $nodejs::params::npm_pkg,
       ensure  => present,
